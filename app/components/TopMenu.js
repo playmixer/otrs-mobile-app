@@ -9,7 +9,7 @@ import { logout } from '../store/actions/user';
 const img_logout = require('../assets/images/power.png');
 const img_background = 'https://otrs-itsm.oilpc.ru/otrs-web/skins/Agent/default/img/controlrow.png'
 
-const NavMenu = (props) => {
+const TopMenu = (props) => {
   const { user, dispatch } = props;
 
   const handleLogOut = () => {
@@ -52,4 +52,4 @@ const LogoutButton = styled.TouchableOpacity`
 
 export default connect(({user}) => ({
   user: user,
-}))(NavMenu);
+}))(TopMenu);

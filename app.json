@@ -24,6 +24,10 @@
     "ios": {
       "supportsTablet": true
     },
+    "android": {
+      "package": "oilpc.otrs",
+      "versionCode": 1
+    },
     "description": ""
   }
 }
