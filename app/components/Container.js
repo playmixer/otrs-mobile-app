@@ -5,7 +5,6 @@ const Container = styled.View`
   flex: 1;
   flex-direction: column;
   margin: 0 15px;
-  padding-bottom: 50px;
 `;
 
 export default Container

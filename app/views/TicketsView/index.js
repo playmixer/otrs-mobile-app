@@ -138,17 +138,6 @@ const TicketInfo = styled.View`
   flex-direction: column;
 `;
 
-const BtnMore = styled.TouchableHighlight`
-  flex: 1;
-  width: 100%;
-  justify-content: center;
-  border-color: #ccc;
-  border-radius: 2px;
-  border-width: 1px;
-  height: 30px;
-  background-color: #ccc
-`;
-
 export default connect(({ user }) => ({
   user: user
 }))(TicketsView);

@@ -2,11 +2,10 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 
+import AppNavigator from './navigation/AppNavigator';
 import LoginView from './views/LoginView';
-import UserProfileView from './views/UserProfileView';
-import TicketsView from './views/TicketsView';
-
 import TopMenu from './components/TopMenu';
+
 
 function Index(props) {
   const { user } = props;
@@ -22,7 +21,7 @@ function Index(props) {
   return (
     <MainView>
       <TopMenu/>
-      <TicketsView/>
+      <AppNavigator/>
     </MainView>
   );
 }

@@ -75,7 +75,7 @@ function TicketView(props) {
   }, [])
 
   if (!ticket.number) {
-    return <Loader size={"large"}/>
+    return <Loader size={"large"} style={{ minHeight: 80 }}/>
   }
 
   return (

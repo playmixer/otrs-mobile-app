@@ -10,6 +10,14 @@ export async function openedTickets(config) {
   })
 }
 
+export async function getTicketByOwned(config) {
+  return api_request({
+    method: "GET",
+    query: `Object=TicketObject&Method=TicketSearch&Data={"StateType":"Open","Result":"ARRAY","OwnerIDs":[${config.userID}],"Permission":"rw"}`,
+    basic: config.basic,
+  })
+}
+
 export async function ticketGet(config) {
   return api_request({
     method: "GET",
