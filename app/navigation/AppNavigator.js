@@ -1,9 +1,10 @@
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator} from 'react-navigation-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import TicketsView from '../views/TicketsView';
+import TicketsView from '../views/TicketView/TicketsView';
 import UserProfileView from '../views/UserProfileView';
-import AgentTicketView from '../views/AgentTicketView';
+import AgentTicketView from '../views/TicketView/AgentTicketView';
 
 const AppNavigator = createBottomTabNavigator({
   AgentTickets: {
