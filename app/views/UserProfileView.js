@@ -1,20 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Container from '../components/Container';
+import Layout from '../components/MainLayout';
 import Text from '../components/Text';
 
-function UserProfileView(props) {
-  const { model } = props.user;
+function UserProfileView({ user, refreshing, onRefresh}) {
 
   return (
-    <Container>
-      <Text large>id: {model.id}</Text>
-      <Text large>login: {model.login}</Text>
-      <Text large>email: {model.email}</Text>
-      <Text large>firstName: {model.firstName}</Text>
-      <Text large>lastName: {model.lastName}</Text>
-    </Container>
+    <Layout
+      title="Профиль"
+      // refreshing={false}
+      // onRefresh={onRefresh}
+
+    >
+      <Text large>id: {user.model.id}</Text>
+      <Text large>login: {user.model.login}</Text>
+      <Text large>email: {user.model.email}</Text>
+      <Text large>firstName: {user.model.firstName}</Text>
+      <Text large>lastName: {user.model.lastName}</Text>
+    </Layout>
   )
 }
 
