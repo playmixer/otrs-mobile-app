@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 
-import { userLogin } from '../store/actions/user';
+import { userLogin, getAsyncStorage } from '../store/actions/user';
 
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -16,6 +16,16 @@ function LoginView(props) {
   const handleSignIn = () => {
     dispatch(userLogin({ username, password }));
   }
+
+  React.useEffect(() => {
+    let cleanupFunction = false
+
+    if (!cleanupFunction) {
+      dispatch(getAsyncStorage())
+    }
+
+    return () => cleanupFunction = true
+  }, [])
 
   return (
     <Container>
