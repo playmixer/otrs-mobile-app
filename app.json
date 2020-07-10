@@ -9,7 +9,7 @@
     "orientation": "portrait",
     "icon": "./app/assets/icon_otrs.png",
     "splash": {
-      "image": "./app/assets/logo.png",
+      "image": "./app/assets/logo-no-tagline-RGB_1000px.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
