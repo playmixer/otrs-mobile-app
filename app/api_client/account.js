@@ -7,3 +7,11 @@ export async function getUserData(config) {
     basic: config.basic,
   })
 }
+
+export async function getUserName(config) {
+  return apiRequest({
+    method: "GET",
+    query: `Object=UserObject&Method=UserName&Data={"UserID":"${userID}"}`,
+    basic: config.basic,
+  })
+}
