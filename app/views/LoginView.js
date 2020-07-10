@@ -10,8 +10,8 @@ import Text from '../components/Text';
 
 function LoginView(props) {
   const { dispatch, user } = props;
-  const [username, useUsername] = useState('Shkirya.NS');
-  const [password, usePassword] = useState('Njhbq058507');
+  const [username, useUsername] = useState('');
+  const [password, usePassword] = useState('');
 
   const handleSignIn = () => {
     dispatch(userLogin({ username, password }));
