@@ -13,7 +13,9 @@ function Layout({ title, children, refreshing, onRefresh }) {
       <ContainerScroll>
         <Content>
           <Text title>{title}</Text>
-          {children}
+          <Body>
+            {children}
+          </Body>
         </Content>
       </ContainerScroll>
     </Container>
@@ -22,6 +24,10 @@ function Layout({ title, children, refreshing, onRefresh }) {
 
 
 const Container = styled.RefreshControl`
+`;
+
+const Body = styled.View`
+  margin-top: 15px;
 `;
 
 const Content = styled.View`
