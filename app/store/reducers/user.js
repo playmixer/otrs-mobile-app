@@ -3,22 +3,22 @@ import { AsyncStorage } from 'react-native';
 import {
   LOGOUT,
   SIGN_IN_ERROR,
-  STORE_ACCOUNT_BASIC,
+  STORE_SAVE_ACCOUNT,
+  STORE_UPDATE_ACCOUNT,
 } from '../actions/types';
 
 const config = {
   isAuth: false,
   isAuthError: false,
 }
-const auth = AsyncStorage.getItem('auth');
 
-const initialState = auth ? auth : {
+const initialState = {
   ...config,
 }
 
 export default function userReducer (state = {...initialState}, action) {
   switch(action.type){
-    case STORE_ACCOUNT_BASIC:
+    case STORE_SAVE_ACCOUNT:
       state = {
         ...state,
         ...action.payload,
@@ -39,6 +39,12 @@ export default function userReducer (state = {...initialState}, action) {
       state = {
         ...state,
         isAuthError: true,
+      }
+      return state
+
+    case STORE_UPDATE_ACCOUNT:
+      state = {
+        ...action.payload
       }
       return state
 
