@@ -1,26 +1,25 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import styled from 'styled-components/native';
+import React from 'react'
+import { connect } from 'react-redux'
+import styled from 'styled-components/native'
 
-import Text from '../../components/Text';
-import Loader from '../../components/Loader';
+import Text from '../../components/Text'
+import Loader from '../../components/Loader'
 import Layout from '../../components/MainLayout'
 
 import TicketGroup from './TicketGroup'
 
-import * as queueApi from '../../api_client/queue';
-import * as ticketApi from '../../api_client/ticket';
+import * as queueApi from '../../api_client/queue'
+import * as ticketApi from '../../api_client/ticket'
 
 const TicketsView = (props) => {
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(true)
   const [isRefreshing, setIsRefreshing] = React.useState(false)
-  const [dataTickets, setDataTickets] = React.useState([]);
+  const [dataTickets, setDataTickets] = React.useState([])
   const [error, setError] = React.useState({
     queues: false,
     openedTickets: false,
     dataTickets: false,
   })
-  // const [pageSize, setPageSize] = React.useState(10)
 
   const getQueuesOfUser = () => {
     const { user } = props;
@@ -98,11 +97,6 @@ const TicketsView = (props) => {
     </Layout>
   )
 }
-
-
-const GroupTickets = styled.View`
-  margin-top: 15px;
-`;
 
 export default connect(({ user }) => ({
   user: user

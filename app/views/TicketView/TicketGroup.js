@@ -10,27 +10,27 @@ function TicketGroup({ ticketList }) {
 
   return (
     <>
-    <Group>
-      {ticketList.sort((a, b)=> a < b).slice(0,pageSize).map((id, index) => {
-        return (  
-          <Ticket
-            key={id}
-            ticketId={id}
-          />
-        )
-      })}
-    </Group>
-    {ticketList.length > pageSize && <Button
-      onPress={() => setPageSize(pageSize + 5)}
-      title="Ещё..."
-    />}
-  </>
+      <Group>
+        {ticketList.sort((a, b)=> a < b).slice(0,pageSize).map((id, index) => {
+          return (
+            <Ticket
+              key={id}
+              ticketId={id}
+            />
+          )
+        })}
+      </Group>
+      {
+        ticketList.length > pageSize && <Button
+          onPress={() => setPageSize(pageSize + 5)}
+          title="Ещё..."
+        />
+      }
+    </>
   )
 }
 
 
-const Group = styled.View`
-  margin-top: 15px;
-`;
+const Group = styled.View``;
 
 export default TicketGroup;
