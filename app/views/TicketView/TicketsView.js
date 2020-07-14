@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components/native'
 
+import { getTickets } from '../../store/actions/ticket'
+
 import Text from '../../components/Text'
 import Loader from '../../components/Loader'
 import Layout from '../../components/MainLayout'
@@ -10,55 +12,23 @@ import TicketGroup from './TicketGroup'
 
 import * as queueApi from '../../api_client/queue'
 import * as ticketApi from '../../api_client/ticket'
+import { ticket } from '../../store/reducers'
 
-const TicketsView = (props) => {
-  const [isLoading, setIsLoading] = React.useState(true)
+const TicketsView = ({ user, dispatch, ticket, navigation }) => {
+  // const [isLoading, setIsLoading] = React.useState(true)
   const [isRefreshing, setIsRefreshing] = React.useState(false)
-  const [dataTickets, setDataTickets] = React.useState([])
+  // const [dataTickets, setDataTickets] = React.useState([])
   const [error, setError] = React.useState({
     queues: false,
     openedTickets: false,
     dataTickets: false,
   })
-
-  const getQueuesOfUser = () => {
-    const { user } = props;
-
-    return queueApi.getQueuesOfUser({ userId: user.model.id, basic: user.basic })
-    .then((res) => {
-      return res.data.Data.filter((val, index) => {
-        if (index % 2 === 0) {
-          return val
-        }
-      })
-    })
-    .catch((err) => {
-      setError({...error, queues: "Ошибка загрузки очередей"})
-      return []
-    })
-  }
   
-  const getOpenedTickets = (queueIDs) => {
-    const { user } = props;
-
-    return ticketApi.openedTickets({ queueIDs: queueIDs, basic: user.basic })
-    .then((res) => {
-      return res.data.Data;
-    })
-    .catch((err) => {
-      setError({...error, openedTickets: "Ошибка загрузки списка тикетов"})
-      return []
-    })
-  }
-
-
-  const onShow = async () => {
-    if (true) {
-      const queueList = await getQueuesOfUser();
-      const ticketList = await getOpenedTickets(queueList);
-      setDataTickets(ticketList)
+  const onShow = () => {
+    if (!ticket.list.items.length || isRefreshing) {
+      dispatch(getTickets({ userID: user.model.id, basic: user.basic }))
+      // setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   React.useEffect(() => {
@@ -74,13 +44,13 @@ const TicketsView = (props) => {
 
   const handleRefresh = async () => {
     setIsRefreshing(true)
-    await onShow()
+    onShow()
     setIsRefreshing(false)
   }
 
-  if (isLoading) {
-    return <Loader size="large"/>
-  }
+  // if (isLoading) {
+  //   return <Loader size="large"/>
+  // }
 
   return (
     <Layout
@@ -92,12 +62,14 @@ const TicketsView = (props) => {
       {error.dataTickets && <Text error>{error.dataTickets}</Text>}
       {error.openedTickets && <Text error>{error.openedTickets}</Text>}
       <TicketGroup
-        ticketList={dataTickets}
+        ticketList={ticket.list.items}
+        navigation={navigation}
       />
     </Layout>
   )
 }
 
-export default connect(({ user }) => ({
-  user: user
+export default connect(({ user, ticket }) => ({
+  user: user,
+  ticket: ticket,
 }))(TicketsView);

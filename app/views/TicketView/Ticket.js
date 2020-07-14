@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import Text from '../../components/Text';
 import Loader from '../../components/Loader';
 
+import { getTicket } from '../../store/actions/ticket/'
+
 import * as appColors from '../../modules/colors';
 
 import * as ticketApi from '../../api_client/ticket';
@@ -19,9 +21,7 @@ const failedTicket = {
   created: "not found",
 }
 
-function TicketView(props) {
-  const { ticketId } = props;
-  const [ticket, setTicket] = React.useState({})  
+function TicketView({ user, ticketId, navigation, ticket, dispatch }) {
   const dateNow = React.useRef(new Date())
   const [error, setError] = React.useState({dataTickets: false})
 
@@ -51,57 +51,41 @@ function TicketView(props) {
     }
   }
   
-  const getTicket = async (id) => {
-    const { user } = props;
-
-    if (!id) {
-      return setTicket(failedTicket)
-    }
-
-    return await ticketApi.ticketGet({ id: id, basic: user.basic })
-      .then((res) => {
-        setTicket({
-          id: res.data.Data[45],
-          number: res.data.Data[133],
-          title: res.data.Data[117],
-          owner: res.data.Data[29],
-          type: res.data.Data[69],
-          service: res.data.Data[67],
-          created: res.data.Data[35],
-        })
-      })
-      .catch(() => {
-        setError({...error, dataTickets: "Ошибка загрузки данных тикета"})
-        setTicket({})
-      })
-  }
-
   React.useEffect(() => {
     let cleanupFunction = false
 
     if (!cleanupFunction) {
       dateNow.current = new Date()
-      getTicket(ticketId)
+      dispatch(getTicket({ id: ticketId, basic: user.basic }))
     }
-
 
     return () => cleanupFunction = true
   }, [])
 
-  if (!ticket.id) {
+  const ticketItem = ticket.viewItems[ticketId]
+
+  if (!ticketItem?.id) {
     return <Loader size={"large"} style={{ minHeight: 80 }}/>
   }
 
   return (
-    <TicketMain activeOpacity={0.5}>
+    <TicketMain
+      activeOpacity={0.5}
+      onPress={()=>{
+        navigation.navigate('ArticleListr', {
+          backView: navigation.state.routeName,
+          ticketID: ticketItem.id
+        })
+      }}
+    >
       <TicketHead>
-        <Text small color={appColors.main}>{ticket.number}</Text>
-        <Text small>{ticket.owner}</Text>
-        <Text small>{ticket.created && dateRange(ticket.created)}</Text>
+        <Text small color={appColors.main}>{ticketItem.number}</Text>
+        <Text small>{ticketItem.owner}</Text>
+        <Text small>{ticketItem.created && dateRange(ticketItem.created)}</Text>
       </TicketHead>
-      <Text small>{ticket.title}</Text>
-      <Text small>{ticket.type}</Text>
-      <Text small>{ticket.service}</Text> 
+      <Text small>{ticketItem.title}</Text>
+      <Text small>{ticketItem.type}</Text>
+      <Text small>{ticketItem.service}</Text>
     </TicketMain>
   )
 };
@@ -127,6 +111,7 @@ const TicketHead = styled.View`
   justify-content: space-between;
 `;
 
-export default connect(({ user }) => ({
+export default connect(({ user, ticket }) => ({
   user: user,
+  ticket: ticket,
 }))(TicketView)

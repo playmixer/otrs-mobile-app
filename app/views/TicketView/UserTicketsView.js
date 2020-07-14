@@ -1,30 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import * as ticketApi from '../../api_client/ticket';
+import { getTicketsByUser } from '../../store/actions/ticket'
 
-import Text from '../../components/Text';
-import Loader from '../../components/Loader';
-import Layout from '../../components/MainLayout';
+import Loader from '../../components/Loader'
+import Layout from '../../components/MainLayout'
 
 import TicketGroup from './TicketGroup'
 
-function AgentTicketView(props) {
+function UserTicketsView({ user, ticket, navigation, dispatch }) {
   const [isLoading, setIsLoading] = React.useState(true)
   const [isRefreshing, setIsRefreshing] = React.useState(false)
-  const [tickets, setTickets] = React.useState([])
-  const [error, setError] = React.useState(false)
 
   const onShow = async () => {
-    const { user } = props;
-    await ticketApi.getTicketsByUser({ userID: user.model.id, basic: user.basic })
-      .then((res) => {
-        setTickets(res.data.Data)
-        setError(false)
-      })
-      .catch((err) => {
-        setError(true)
-      })
+    if (!ticket.listByUser?.items.length || isRefreshing) {
+      dispatch(getTicketsByUser({ userID: user.model.id, basic: user.basic }))
+    }
   }
 
   React.useEffect(() => {
@@ -54,14 +45,15 @@ function AgentTicketView(props) {
       refreshing={isRefreshing}
       onRefresh={handleRefresh}
     >
-      {error.current && <Text large color="red">Error</Text>}
       <TicketGroup
-        ticketList={tickets}
+        ticketList={ticket.listByUser.items}
+        navigation={navigation}
       />
     </Layout>
   )
 }
 
-export default connect(({ user }) => ({
-  user: user
-}))(AgentTicketView);
+export default connect(({ user, ticket }) => ({
+  user: user,
+  ticket: ticket
+}))(UserTicketsView);

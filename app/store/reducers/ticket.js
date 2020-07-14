@@ -1,12 +1,17 @@
 import {
-  STORE_USER_TICKETS
+  STORE_USER_TICKET_LIST,
+  STORE_TICKET_ITEM,
+  STORE_TICKET_LIST
 } from '../actions/types'
 
 const config = {
-  userTickets: {
-    items: [],
-    chosedItem: null,
+  listByUser: {
+    items: []
   },
+  list: {
+    items: []
+  },
+  viewItems: {}
 }
 
 const initialState = {
@@ -15,13 +20,33 @@ const initialState = {
 
 export default function ticketReducer( state = {...initialState}, action) {
   switch(action.type) {
-    case STORE_USER_TICKETS:
-      let storeTickets = config
-      storeTickets.items = action.payload
-      
+    case STORE_USER_TICKET_LIST:
       state = {
         ...state,
-        ...storeTickets,
+        listByUser: {
+          items: action.payload
+        }
+      }
+
+      return state
+
+    case STORE_TICKET_LIST:
+      state = {
+        ...state,
+        list: {
+          items: action.payload
+        }
+      }
+
+      return state
+
+    case STORE_TICKET_ITEM:
+      state = {
+        ...state,
+        viewItems: {
+          ...state.viewItems,
+          [action.payload.id]: action.payload
+        }
       }
 
       return state
