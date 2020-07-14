@@ -17,7 +17,7 @@ function AgentTicketView(props) {
 
   const onShow = async () => {
     const { user } = props;
-    await ticketApi.getTicketByOwned({ userID: user.model.id, basic: user.basic })
+    await ticketApi.getTicketsByUser({ userID: user.model.id, basic: user.basic })
       .then((res) => {
         setTickets(res.data.Data)
         setError(false)
