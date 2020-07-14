@@ -1,11 +1,10 @@
 import api_request from './api_request';
 
 export async function openedTickets(config) {
-  const queueIDs = JSON.stringify(config.queueIDs);
 
   return api_request({
     method: "GET",
-    query: `Object=TicketObject&Method=TicketSearch&Data={"StateType":"open","Result":"ARRAY","QueueIDs":${queueIDs}}`,
+    query: `Object=TicketObject&Method=TicketSearch&Data={"StateType":"Open","Result":"ARRAY","UserID":${config.userID},"Permission":"rw"}`,
     basic: config.basic
   })
 }
