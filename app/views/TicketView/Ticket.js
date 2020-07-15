@@ -9,18 +9,6 @@ import { getTicket } from '../../store/actions/ticket/'
 
 import * as appColors from '../../modules/colors';
 
-import * as ticketApi from '../../api_client/ticket';
-
-const failedTicket = {
-  id: undefined,
-  number: "not found",
-  title: "not found",
-  owner: "not found",
-  type: "not found",
-  service: "not found",
-  created: "not found",
-}
-
 function TicketView({ user, ticketId, navigation, ticket, dispatch }) {
   const dateNow = React.useRef(new Date())
   const [error, setError] = React.useState({dataTickets: false})
@@ -56,7 +44,6 @@ function TicketView({ user, ticketId, navigation, ticket, dispatch }) {
 
     if (!cleanupFunction) {
       dateNow.current = new Date()
-      dispatch(getTicket({ id: ticketId, basic: user.basic }))
     }
 
     return () => cleanupFunction = true
@@ -64,7 +51,8 @@ function TicketView({ user, ticketId, navigation, ticket, dispatch }) {
 
   const ticketItem = ticket.viewItems[ticketId]
 
-  if (!ticketItem?.id) {
+  if (!ticket.viewItems[ticketId]?.id) {
+    dispatch(getTicket({ id: ticketId, basic: user.basic }))
     return <Loader size={"large"} style={{ minHeight: 80 }}/>
   }
 
