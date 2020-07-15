@@ -1,8 +1,10 @@
 
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage } from 'react-native'
 
-import { generationBasic } from '../../utils/account';
-import * as accountApi from '../../api_client/account';
+import * as accountApi from '../../api_client/account'
+
+import { generationBasic } from '../../utils/account'
+import { formattingData } from '../../formatters/api'
 
 import {
   LOGOUT,
@@ -15,16 +17,6 @@ export const logout = () => ({ type: LOGOUT });
 export const login = (payload) => ({ type: STORE_SAVE_ACCOUNT, payload });
 export const signInError = () => ({ type: SIGN_IN_ERROR });
 export const updateStorage = (payload) => ({type: STORE_UPDATE_ACCOUNT, payload})
-
-const formattingData = (data) => {
-  let res = {}
-  data.map((value, index, arr) => {
-    if (index % 2 == 0) {
-      res[value] = arr[index + 1]
-    }
-  })
-  return res
-}
 
 export const userLogin = (payload) => (dispatch) => {
   const basic = generationBasic(payload.username, payload.password);

@@ -1,21 +1,21 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import styled from 'styled-components/native'
+import { connect } from 'react-redux'
 
-import { getTickets, setSizePage } from '../../store/actions/ticket'
-
-import Button from '../../components/Button'
-import Layout from '../../components/MainLayout'
-import Loader from '../../components/Loader'
+import { getTicketsByUser } from '../../store/actions/ticket'
 
 import TicketView from './Ticket'
 
-const TicketsView = ({ user, dispatch, ticket, navigation }) => {
+import Button from '../../components/Button'
+import Loader from '../../components/Loader'
+import Layout from '../../components/MainLayout'
+
+function UserTicketsView({ user, ticket, navigation, dispatch }) {
   const [isLoading, setIsLoading] = React.useState(true)
   const [isRefreshing, setIsRefreshing] = React.useState(false)
-  
+
   const onShow = () => {
-    dispatch(getTickets({ userID: user.model.id, basic: user.basic }))
+    dispatch(getTicketsByUser({ userID: user.model.id, basic: user.basic }))
   }
 
   React.useEffect(() => {
@@ -26,7 +26,7 @@ const TicketsView = ({ user, dispatch, ticket, navigation }) => {
       setIsLoading(false)
     }
 
-    return () => cleanupFunction = true
+    return () => cleanupFunction = true;
   }, [])
 
   const handleRefresh = async () => {
@@ -43,12 +43,12 @@ const TicketsView = ({ user, dispatch, ticket, navigation }) => {
 
   return (
     <Layout
-      title="Открытые заявки"
+      title="Мои заявки"
       refreshing={isRefreshing}
       onRefresh={handleRefresh}
     >
       <TicketGroup>
-        {ticket.list.items?.sort((a, b)=> a < b).slice(0,ticket.list.pageSize).map((id) => {
+        {ticket.listByUser.items?.sort((a, b)=> a < b).slice(0,ticket.listByUser.pageSize).map((id) => {
           return (
             <TicketView
               key={id}
@@ -59,9 +59,9 @@ const TicketsView = ({ user, dispatch, ticket, navigation }) => {
         })}
       </TicketGroup>
       {
-        ticket.list.items?.length > ticket.list.pageSize && <Button
+        ticket.listByUser.items?.length > ticket.listByUser.pageSize && <Button
           onPress={() => {
-            dispatch(setSizePage(ticket.list.pageSize + 5))
+            dispatch(setSizePageUserTickets(ticket.listByUser.pageSize + 5))
           }}
           title="Ещё..."
         />
@@ -74,5 +74,5 @@ const TicketGroup = styled.View``;
 
 export default connect(({ user, ticket }) => ({
   user: user,
-  ticket: ticket,
-}))(TicketsView);
+  ticket: ticket
+}))(UserTicketsView);

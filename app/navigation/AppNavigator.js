@@ -1,22 +1,22 @@
-import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator} from 'react-navigation-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { createAppContainer } from 'react-navigation'
+import { createBottomTabNavigator} from 'react-navigation-tabs'
 
-import TicketsView from '../views/TicketView/TicketsView';
-import UserProfileView from '../views/UserProfileView';
-import AgentTicketView from '../views/TicketView/AgentTicketView';
+import UserTicketsNavigator from './UserTicketsNavigator'
+import TicketNavigator from './TicketsNavigator'
+
+import UserProfileView from '../views/UserProfileView'
 
 const AppNavigator = createBottomTabNavigator({
-  AgentTickets: {
-    screen: AgentTicketView,
+  UserTickets: {
+    screen: UserTicketsNavigator,
     navigationOptions: {
-      title: "Мои заявки"
+      title: "Мои заявки",
     }
   },
   Tickets: {
-    screen: TicketsView,
+    screen: TicketNavigator,
     navigationOptions: {
-      title: "Открытые заявки"
+      title: "Открытые заявки",
     }
   },
   UserProfile: {
@@ -26,7 +26,9 @@ const AppNavigator = createBottomTabNavigator({
     }
   },
 }, {
-  initialRouteName: 'AgentTickets',
+  initialRouteName: 'UserTickets',
+  backBehavior: 'none',
+  lasy: false,
 })
 
 export default createAppContainer(AppNavigator);
