@@ -7,13 +7,13 @@ const TicketsNavigator = createSwitchNavigator({
   Tickets: {
     screen: TicketsView,
     navigationOptions: {
-      title: "Открытые заявки"
+      title: "Открытые заявки",
     }
   },
   ArticleListr: {
     screen: ArticleListView,
     navigationOptions: {
-      title: "Заметки"
+      title: "Заметки",
     }
   },
 })

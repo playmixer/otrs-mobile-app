@@ -10,13 +10,13 @@ const AppNavigator = createBottomTabNavigator({
   UserTickets: {
     screen: UserTicketsNavigator,
     navigationOptions: {
-      title: "Мои заявки"
+      title: "Мои заявки",
     }
   },
   Tickets: {
     screen: TicketNavigator,
     navigationOptions: {
-      title: "Открытые заявки"
+      title: "Открытые заявки",
     }
   },
   UserProfile: {
@@ -27,7 +27,8 @@ const AppNavigator = createBottomTabNavigator({
   },
 }, {
   initialRouteName: 'UserTickets',
-  lasy: true
+  backBehavior: 'none',
+  lasy: false,
 })
 
 export default createAppContainer(AppNavigator);
