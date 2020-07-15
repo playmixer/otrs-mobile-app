@@ -24,6 +24,7 @@ function Layout({ title, children, refreshing, onRefresh }) {
 
 
 const Container = styled.RefreshControl`
+  height: 100%;
 `;
 
 const Body = styled.View`
