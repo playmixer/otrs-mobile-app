@@ -1,16 +1,20 @@
 import {
   STORE_USER_TICKET_LIST,
   STORE_TICKET_ITEM,
-  STORE_TICKET_LIST
+  STORE_TICKET_LIST,
+  SET_SIZE_PAGE_USER_TICKETS,
+  SET_SIZE_PAGE,
+  TICKET_VIEW_CLEANUP
 } from '../actions/types'
 
+const list = {
+  items: [],
+  pageSize: 10
+}
+
 const config = {
-  listByUser: {
-    items: []
-  },
-  list: {
-    items: []
-  },
+  listByUser: {...list},
+  list: {...list},
   viewItems: {}
 }
 
@@ -24,6 +28,7 @@ export default function ticketReducer( state = {...initialState}, action) {
       state = {
         ...state,
         listByUser: {
+          ...state.listByUser,
           items: action.payload
         }
       }
@@ -34,6 +39,7 @@ export default function ticketReducer( state = {...initialState}, action) {
       state = {
         ...state,
         list: {
+          ...state.list,
           items: action.payload
         }
       }
@@ -50,6 +56,34 @@ export default function ticketReducer( state = {...initialState}, action) {
       }
 
       return state
+
+    case SET_SIZE_PAGE_USER_TICKETS:
+      state = {
+        ...state,
+        listByUser: {
+          ...state.listByUser,
+          pageSize: action.payload
+        }
+      }
+
+      return state
+
+      case SET_SIZE_PAGE:
+        state = {
+          ...state,
+          list: {
+            ...state.list,
+            pageSize: action.payload
+          }
+        }
+
+        return state
+
+      case TICKET_VIEW_CLEANUP:
+        state = {
+          ...state,
+          viewItems: {}
+        }
 
     default:
       return state
