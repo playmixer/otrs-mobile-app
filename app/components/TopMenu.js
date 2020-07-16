@@ -7,7 +7,6 @@ import Text from '../components/Text';
 import { logout } from '../store/actions/user';
 
 const img_logout = require('../assets/images/power.png');
-const img_background = 'https://otrs-itsm.oilpc.ru/otrs-web/skins/Agent/default/img/controlrow.png'
 
 const TopMenu = (props) => {
   const { user, dispatch } = props;
