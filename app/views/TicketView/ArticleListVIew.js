@@ -3,13 +3,10 @@ import { BackHandler } from 'react-native'
 import { connect } from 'react-redux'
 import styled from 'styled-components/native'
 
-import { MaterialIcons } from '@expo/vector-icons'
-
 import * as apiTicket from '../../api_client/ticket'
 
 import Layout from '../../components/MainLayout'
 import Text from '../../components/Text'
-import Button from '../../components/Button'
 import Loader from '../../components/Loader'
 
 import * as dateFormat from '../../formatters/date'
@@ -22,7 +19,6 @@ function ArticleListView({ navigation, ticket, user, dispatch }) {
     viewItems: {},
     chosedID: null,
   })
-
 
   const handleGoBack = () => {
     navigation.navigate(navigation.state.params.backView)
@@ -135,17 +131,9 @@ function ArticleListView({ navigation, ticket, user, dispatch }) {
         })
       }
       </ArticleGroup>
-      <BtnGoBack onPress={handleGoBack}>
-        <MaterialIcons name="arrow-back" size={32} color="black" />
-      </BtnGoBack>
     </Layout>
   )
 };
-
-const BtnGoBack = styled.TouchableOpacity`
-  align-items: flex-end;
-  width: 100%;
-`
 
 const BodyTitle = styled.View`
   padding: 5px 0 5px 15px;
