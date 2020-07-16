@@ -1,7 +1,7 @@
 import { createSwitchNavigator } from 'react-navigation'
 
 import UserTicketsView from '../views/TicketView/UserTicketsView'
-import ArticleListView from '../views/TicketView/ArticleListVIew'
+import ArticleListView from '../views/TicketView/ArticleListView'
 
 const UserTicketsNavigator = createSwitchNavigator({
   UserTickets: {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { BackHandler } from 'react-native'
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 
@@ -6,9 +7,12 @@ import AppNavigator from './navigation/AppNavigator';
 import LoginView from './views/LoginView';
 import TopMenu from './components/TopMenu';
 
+import { navigationRef } from './utils/navigation'
 
 function Index(props) {
   const { user } = props;
+
+  BackHandler.exitApp = () => {}
 
   if (!user.isAuth) {
     return (
@@ -21,7 +25,7 @@ function Index(props) {
   return (
     <MainView>
       <TopMenu/>
-      <AppNavigator/>
+      <AppNavigator ref={navigationRef}/>
     </MainView>
   );
 }
