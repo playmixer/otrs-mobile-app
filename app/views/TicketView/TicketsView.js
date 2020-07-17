@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components/native'
 
-import { getTickets, setSizePage } from '../../store/actions/ticket'
+import { getTickets, setSizePage, getTicket } from '../../store/actions/ticket'
 
 import Button from '../../components/Button'
 import Layout from '../../components/MainLayout'
@@ -32,6 +32,9 @@ const TicketsView = ({ user, dispatch, ticket, navigation }) => {
   const handleRefresh = async () => {
     setIsRefreshing(true)
     onShow()
+    ticket.list.items.map((id) => {
+      dispatch(getTicket({ id: id, basic: user.basic }))
+    })
     setTimeout(() => {
       setIsRefreshing(false)
     }, 1000)
