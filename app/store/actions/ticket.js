@@ -1,3 +1,5 @@
+import handleRequestError from '../../utils/handleRequestError'
+
 import * as ticketApi from '../../api_client/ticket'
 
 import { formattingData } from '../../formatters/api'
@@ -23,8 +25,7 @@ export const getTicketsByUser = (payload) => (dispatch) => {
     .then(res => {
       dispatch(storeTicketListByUser(res.data.Data))
     })
-    .catch(err => {
-    })
+    .catch(handleRequestError(dispatch))
 }
 
 export const getTickets = (payload) => (dispatch) => {
@@ -32,8 +33,7 @@ export const getTickets = (payload) => (dispatch) => {
     .then(res => {
       dispatch(storeTicketList(res.data.Data))
     })
-    .catch(err => {
-    })
+    .catch(handleRequestError(dispatch))
 }
 
 export const getTicket = (payload) =>  (dispatch) => {
@@ -44,12 +44,7 @@ export const getTicket = (payload) =>  (dispatch) => {
         value: res.data.Data
       }
     })
-    .catch((err) => {
-      return {
-        status: err.response.status,
-        value: null
-      }
-    })
+    .catch(handleRequestError(dispatch))
 
   Promise.all([ticketList])
     .then((res) => {
@@ -64,8 +59,4 @@ export const getTicket = (payload) =>  (dispatch) => {
         created: ticket.Created,
       }))
     })
-    .catch(err => {
-      console.log(err)
-    })
-
 }
