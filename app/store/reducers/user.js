@@ -22,6 +22,7 @@ export default function userReducer (state = {...initialState}, action) {
       state = {
         ...state,
         ...action.payload,
+        isAuthError: false,
         isAuth: true,        
       }
 
