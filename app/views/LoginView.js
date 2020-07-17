@@ -47,7 +47,7 @@ function LoginView(props) {
           onChange={(e) => usePassword(e.nativeEvent.text)}
           value={password}
         />
-        {user.isAuthError && <Text error>Логин или пароль неверны</Text>}
+        {user.isAuthError && <Text color="red" style={{ marginBottom: 5}}>Логин или пароль неверны</Text>}
         <Button
           title="Вход"
           onPress={handleSignIn}

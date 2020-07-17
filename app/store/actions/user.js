@@ -1,9 +1,9 @@
-
 import { AsyncStorage } from 'react-native'
 
 import * as accountApi from '../../api_client/account'
 
 import { generationBasic } from '../../utils/account'
+
 import { formattingData } from '../../formatters/api'
 
 import {
@@ -28,17 +28,15 @@ export const userLogin = (payload) => (dispatch) => {
         value: res.data.Data
       }
     })
-    .catch((err) => {
-      return {
-        status: err.response.status,
-        value: null
-      }
+    .catch(() => {
+      dispatch(logout())
+      dispatch(signInError())
     })
-  
+
   Promise.all([userData])
     .then(res => {
       const data = res[0]
-      if (data.status == 200) {
+      if (data?.status == 200) {
         const dataFormated = formattingData(data.value) 
 
         return dispatch(login({
@@ -53,13 +51,6 @@ export const userLogin = (payload) => (dispatch) => {
           lastLogin: new Date(),
         }));
       }
-
-      if (data.status == 401) {
-        dispatch(logout())
-        dispatch(signInError())
-        return
-      }
-    
     })
 }
 
@@ -74,7 +65,5 @@ export const getAsyncStorage = () => (dispatch) => {
         dispatch(updateStorage({...JSON.parse(res)}))
       }
     })
-    .catch(err => {
-      console.log(err)
-    })
+    .catch()
 }
