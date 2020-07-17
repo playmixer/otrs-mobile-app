@@ -12,6 +12,7 @@ function LoginView(props) {
   const { dispatch, user } = props;
   const [username, useUsername] = useState('');
   const [password, usePassword] = useState('');
+  const refPassword = React.createRef()
 
   const handleSignIn = () => {
     dispatch(userLogin({ username, password }));
@@ -37,14 +38,19 @@ function LoginView(props) {
         <Input
           placeholder="Логин"
           textContentType="username"
+          keyboardType="default"
           onChange={(e) => useUsername(e.nativeEvent.text)}
+          onSubmitEditing={() => refPassword.current.focus()}
           value={username}
         />
         <Input
           secureTextEntry={true}
           placeholder="Пароль"
           textContentType="password"
+          ref={refPassword}
+          keyboardType="default"
           onChange={(e) => usePassword(e.nativeEvent.text)}
+          onSubmitEditing={() => handleSignIn()}
           value={password}
         />
         {user.isAuthError && <Text color="red" style={{ marginBottom: 5}}>Логин или пароль неверны</Text>}
