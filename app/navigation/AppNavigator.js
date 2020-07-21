@@ -5,6 +5,7 @@ import UserTicketsNavigator from './UserTicketsNavigator'
 import TicketNavigator from './TicketsNavigator'
 
 import UserProfileView from '../views/UserProfileView'
+import SettingsView from '../views/SettingsView'
 
 const AppNavigator = createBottomTabNavigator({
   UserTickets: {
@@ -17,6 +18,12 @@ const AppNavigator = createBottomTabNavigator({
     screen: TicketNavigator,
     navigationOptions: {
       title: "Открытые заявки",
+    }
+  },
+  Settings: {
+    screen: SettingsView,
+    navigationOptions: {
+      title: "Настройки"
     }
   },
   UserProfile: {
