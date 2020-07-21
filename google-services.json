@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "346744559564",
+    "firebase_url": "https://otrs-mobile-oilpc.firebaseio.com",
+    "project_id": "otrs-mobile-oilpc",
+    "storage_bucket": "otrs-mobile-oilpc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346744559564:android:9042505fa29efd50cdef69",
+        "android_client_info": {
+          "package_name": "oilpc.otrs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346744559564-6o8c9pbors4o78m68j27sv7oi52gj9q7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV_S7DPz6uXuUa-kUZ6SOpHNQoHQYvL78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346744559564-6o8c9pbors4o78m68j27sv7oi52gj9q7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
