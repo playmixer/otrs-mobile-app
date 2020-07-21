@@ -23,6 +23,7 @@
       "supportsTablet": false
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "package": "oilpc.otrs",
       "versionCode": 1
     },
