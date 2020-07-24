@@ -9,10 +9,26 @@ import TopMenu from './components/TopMenu';
 
 import { navigationRef } from './utils/navigation'
 
+import * as Notifications from './notifications/index'
+
 function Index(props) {
   const { user } = props;
 
   BackHandler.exitApp = () => {}
+
+  React.useEffect(() => {
+    let cleanupFunction = false
+
+    if (!cleanupFunction) {
+      Notifications.register()
+      Notifications.addListener()
+    }
+
+    return () => {
+      cleanupFunction = true
+      Notifications.removeListener()
+    }
+  }, [])
 
   if (!user.isAuth) {
     return (

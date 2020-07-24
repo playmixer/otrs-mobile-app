@@ -1,4 +1,5 @@
 import handleRequestError from '../../utils/handleRequestError'
+import * as database from '../../firebase/actions'
 
 import * as ticketApi from '../../api_client/ticket'
 
@@ -24,6 +25,7 @@ export const getTicketsByUser = (payload) => (dispatch) => {
   ticketApi.getTicketsByUser({ userID: payload.userID, basic: payload.basic })
     .then(res => {
       dispatch(storeTicketListByUser(res.data.Data))
+      database.updateTicketListByUser({ userID: payload.userID, tickets: res.data.Data})
     })
     .catch(handleRequestError(dispatch))
 }
