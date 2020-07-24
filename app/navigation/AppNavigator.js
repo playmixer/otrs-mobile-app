@@ -4,7 +4,6 @@ import { createBottomTabNavigator} from 'react-navigation-tabs'
 import UserTicketsNavigator from './UserTicketsNavigator'
 import TicketNavigator from './TicketsNavigator'
 
-import UserProfileView from '../views/UserProfileView'
 import SettingsView from '../views/SettingsView'
 
 const AppNavigator = createBottomTabNavigator({
@@ -24,12 +23,6 @@ const AppNavigator = createBottomTabNavigator({
     screen: SettingsView,
     navigationOptions: {
       title: "Настройки"
-    }
-  },
-  UserProfile: {
-    screen: UserProfileView,
-    navigationOptions: {
-      title: "Профиль"
     }
   },
 }, {
