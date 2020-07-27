@@ -1,20 +1,17 @@
-import React from 'react';
-import styled from 'styled-components/native';
+import styled from 'styled-components/native'
 import * as appColor from '../modules/colors'
 
 const Text = styled.Text`
-  ${({ main, dark, color }) => {
+  color: ${({color}) => {return color ? `${color}` : 'black'}};
+
+  ${({ main, dark }) => {
     switch(true) {
       case main:
         return `color: ${appColor.main}`;
       case dark:
         return `color: #fff`;
-      case color:
-        return `color: ${color}`;
-      default:
-        return `color: black`;
     }
-  }}
+  }};
 
   text-align: ${({ center, right }) => {
     switch (true) {
