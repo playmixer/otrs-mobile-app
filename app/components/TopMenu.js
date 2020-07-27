@@ -46,7 +46,8 @@ const LogoutButton = styled.TouchableOpacity`
   margin-left: 10px;
   padding: 2px 5px;
   border-radius: 5px;
-  background-color: #ccc;
+  border-width: 1px;
+  border-color: #ccc;
 `;
 
 export default connect(({user}) => ({
