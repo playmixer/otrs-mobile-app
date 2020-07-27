@@ -1,5 +1,7 @@
-import database from './index'
+import firebaseApp from './index'
 import { getToken } from '../notifications/index'
+
+const database = firebaseApp.database()
 
 export async function checkSubsription({ userID }) {
   return database.ref('/subscribers/' +userID).once('value')
@@ -20,7 +22,7 @@ export function unSubscribe({ userID }) {
 }
 
 
-export const updateTicketListByUser = function({ userID, tickets }) {
+export function updateTicketListByUser({ userID, tickets }) {
   update = {}
   update[`/subscribers/${userID}/tickets`] = tickets
   database.ref().update(update)
