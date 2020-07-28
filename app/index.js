@@ -4,12 +4,12 @@ import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 
 import AppNavigator from './navigation/AppNavigator';
+
 import LoginView from './views/LoginView';
 import TopMenu from './components/TopMenu';
 
-import { navigationRef } from './utils/navigation'
-
 import * as Notifications from './notifications/index'
+
 
 function Index(props) {
   const { user } = props;
@@ -41,7 +41,7 @@ function Index(props) {
   return (
     <MainView>
       <TopMenu/>
-      <AppNavigator ref={navigationRef}/>
+      <AppNavigator/>
     </MainView>
   );
 }
