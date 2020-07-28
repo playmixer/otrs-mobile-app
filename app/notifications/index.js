@@ -45,8 +45,7 @@ export const register = async () => {
 
 const _listen = (notification) => {
   if (notification.origin === "selected") {
-    navigation.navigate("ArticleListr", {
-      backView: navigation.state.routeName,
+    navigation.navigate("ArticleListView", {
       ticketID: notification.data.ticketID
     })
   }
@@ -59,4 +58,3 @@ export const addListener = () => {
 export const removeListener = () => {
   Notifications.removeListener(_listen)
 }
-
