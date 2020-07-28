@@ -5,11 +5,13 @@ import { connect } from 'react-redux';
 import Text from '../../components/Text';
 import Loader from '../../components/Loader';
 
-import { getTicket } from '../../store/actions/ticket/'
+import { getTicket } from '../../store/actions/ticket/';
+
+import { navigate } from '../../utils/navigation';
 
 import * as appColors from '../../modules/colors';
 
-function TicketView({ user, ticketId, navigation, ticket, dispatch }) {
+function TicketView({ user, ticketId, ticket, dispatch }) {
   const dateNow = React.useRef(new Date())
   const [error, setError] = React.useState({dataTickets: false})
 
@@ -60,8 +62,7 @@ function TicketView({ user, ticketId, navigation, ticket, dispatch }) {
     <TicketMain
       activeOpacity={0.5}
       onPress={()=>{
-        navigation.navigate('ArticleListr', {
-          backView: navigation.state.routeName,
+        navigate('ArticleListView', {
           ticketID: ticketItem.id
         })
       }}
