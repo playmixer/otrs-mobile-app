@@ -12,7 +12,7 @@ import Loader from '../../components/Loader'
 import * as dateFormat from '../../formatters/date'
 
 
-function ArticleListView({ navigation, ticket, user, dispatch }) {
+function ArticleListView({ navigation, ticket, user, route }) {
   const [isLoading, setIsLoading] = React.useState(true)
   const [articleList, setArticleList] = React.useState({
     items: [],
@@ -21,11 +21,11 @@ function ArticleListView({ navigation, ticket, user, dispatch }) {
   })
 
   const handleGoBack = () => {
-    navigation.navigate(navigation.state.params.backView)
+    navigation.navigate('BottomNavigator')
   }
 
   const getArticleData = () => {
-    apiTicket.getArticlesByTicket({ ticketID: navigation.state.params.ticketID, basic: user.basic })
+    apiTicket.getArticlesByTicket({ ticketID: route.params.ticketID, basic: user.basic })
       .then(res => {
         let views = {}
         let items = []
@@ -89,7 +89,7 @@ function ArticleListView({ navigation, ticket, user, dispatch }) {
 
   return (
     <Layout
-      title={`Ticket# ${ticket.viewItems[navigation.state.params.ticketID].number}`}
+      title={`Ticket# ${ticket.viewItems[route.params.ticketID].number}`}
       onRefresh={handleRefresh}
     >
       <ArticleGroup>
