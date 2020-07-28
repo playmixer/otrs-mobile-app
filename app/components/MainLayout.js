@@ -38,6 +38,7 @@ const Content = styled.View`
 `;
 
 const ContainerScroll = styled.ScrollView`
+  background-color: white;
 `;
 
 export default Layout;
