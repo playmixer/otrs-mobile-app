@@ -11,7 +11,7 @@ export async function getUserData(config) {
 export async function getUserName(config) {
   return apiRequest({
     method: "GET",
-    query: `Object=UserObject&Method=UserName&Data={"UserID":"${userID}"}`,
+    query: `Object=UserObject&Method=UserName&Data={"UserID":"${config.userID}"}`,
     basic: config.basic,
   })
 }
