@@ -1,46 +1,72 @@
 import React from 'react'
-import { createAppContainer } from 'react-navigation'
-import { createBottomTabNavigator} from 'react-navigation-tabs'
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import { FontAwesome, AntDesign, MaterialIcons } from '@expo/vector-icons'
-import * as appColor from '../modules/colors'
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 
-import UserTicketsNavigator from './UserTicketsNavigator'
-import TicketNavigator from './TicketsNavigator'
+import UserTicketsView from '../views/TicketView/UserTicketsView';
+import TicketsView from '../views/TicketView/TicketsView';
+import SettingsView from '../views/SettingsView';
+import ArticleListView from '../views/TicketView/ArticleListView';
 
-import SettingsView from '../views/SettingsView'
+import { navigationRef } from '../utils/navigation';
 
-const AppNavigator = createBottomTabNavigator({
-  UserTickets: {
-    screen: UserTicketsNavigator,
-    navigationOptions: {
-      title: "Мои заявки",
-      tabBarIcon: ({ tintColor }) => (<FontAwesome name="user" size={24} color={tintColor} />)
-    }
-  },
-  Tickets: {
-    screen: TicketNavigator,
-    navigationOptions: {
-      title: "Открытые заявки",
-      tabBarIcon: ({ tintColor }) => (<FontAwesome name="list" size={24} color={tintColor} />)
-    }
-  },
-  Settings: {
-    screen: SettingsView,
-    navigationOptions: {
-      title: "Настройки",
-      tabBarIcon: ({ tintColor }) => (<MaterialIcons name="settings" size={24} color={tintColor} />)
-    }
-  },
-}, {
-  initialRouteName: 'UserTickets',
-  backBehavior: 'none',
-  lasy: false,
-  tabBarOptions: {
-    activeTintColor: appColor.main,
-    inactiveTintColor: "black"
-  }
-})
+import * as appColor from '../modules/colors';
 
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-export default createAppContainer(AppNavigator);
+function BottomNavigator() {
+  return (
+    <Tab.Navigator
+      backBehavior={'none'}
+      tabBarOptions={{
+        activeTintColor: appColor.main,
+        inactiveTintColor: "black"
+      }}
+    >
+      <Tab.Screen
+        name="Мои заявки"
+        component={UserTicketsView}
+        options={{
+          tabBarIcon: ({ color }) => (<FontAwesome name="user" size={24} color={color} />)
+        }}
+      />
+      <Tab.Screen
+        name="Открытые заявки"
+        component={TicketsView}
+        options={{
+          tabBarIcon: ({ color }) => (<FontAwesome name="list" size={24} color={color} />)
+        }}
+      />
+      <Tab.Screen
+        name="Настройки"
+        component={SettingsView}
+        options={{
+          tabBarIcon: ({ color }) => (<MaterialIcons name="settings" size={24} color={color} />)
+        }}
+      />
+    </Tab.Navigator>
+  )
+}
+
+function AppNavigator() {
+  return (
+    <NavigationContainer ref={navigationRef}>
+      <Stack.Navigator>
+        <Stack.Screen name="BottomNavigator" component={BottomNavigator}
+          options={{
+            headerShown:false,
+          }}
+        />
+        <Stack.Screen name="ArticleListView" component={ArticleListView}
+          options={{
+            headerShown:false,
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>)
+}
+
+export default AppNavigator;
