@@ -89,7 +89,7 @@ function ArticleListView({ navigation, ticket, user, route }) {
 
   return (
     <Layout
-      title={`Ticket# ${ticket.viewItems[route.params.ticketID].number}`}
+      title={`Ticket# ${ticket.viewItems[route.params.ticketID] ? ticket.viewItems[route.params.ticketID].number : ""}`}
       onRefresh={handleRefresh}
     >
       <ArticleGroup>
