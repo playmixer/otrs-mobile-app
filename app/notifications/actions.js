@@ -1,6 +1,6 @@
 import { getToken } from './index'
 
-export const sendPushNotification = (notification) => {
+export const sendPushNotification = async (notification) => {
   const token = getToken()
   const message = {
     to: token,
