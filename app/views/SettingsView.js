@@ -4,10 +4,12 @@ import {connect} from 'react-redux'
 
 import { subscribe, unSubscribe, checkSubsription } from '../firebase/actions'
 import { getToken } from '../notifications/index'
+import { sendPushNotification } from '../notifications/actions'
 
 import Layout from '../components/MainLayout'
 import Switch from '../components/Switch'
 import Text from '../components/Text'
+import Button from '../components/Button'
 
 function SettingsView({ user, ticket }) {
   const [isSendPush, setIsSendPush] = React.useState(false)
@@ -50,6 +52,16 @@ function SettingsView({ user, ticket }) {
           value={isSendPush}
         />
       </Option>
+      {user.model.id == 2260 && <Button
+        onPress={() => {
+          sendPushNotification({
+            title: "test",
+            message: "Test",
+            data: { ticketID: 7296252 }
+          })
+        }}
+        title="Send push"
+      />}
     </Layout>
   )
 }
