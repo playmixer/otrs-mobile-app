@@ -10,7 +10,7 @@ import TicketsView from '../views/TicketView/TicketsView';
 import SettingsView from '../views/SettingsView';
 import ArticleListView from '../views/TicketView/ArticleListView';
 
-import { navigationRef } from '../utils/navigation';
+import { navigationRef, isReadyRef } from '../utils/navigation';
 
 import * as appColor from '../modules/colors';
 
@@ -53,7 +53,10 @@ function BottomNavigator() {
 
 function AppNavigator() {
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => {isReadyRef.current = true}}
+    >
       <Stack.Navigator>
         <Stack.Screen name="BottomNavigator" component={BottomNavigator}
           options={{
