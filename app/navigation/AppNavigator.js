@@ -52,6 +52,10 @@ function BottomNavigator() {
 }
 
 function AppNavigator() {
+  React.useEffect(() => {
+    return () => (isReadyRef.current = false);
+  },[])
+
   return (
     <NavigationContainer
       ref={navigationRef}
