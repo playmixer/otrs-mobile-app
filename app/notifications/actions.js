@@ -1,7 +1,7 @@
 import { getToken } from './index'
 
 export const sendPushNotification = async (notification) => {
-  const token = getToken()
+  const token = notification.token;
   const message = {
     to: token,
     sound: 'default',

@@ -1,15 +1,10 @@
-import * as Permissions from 'expo-permissions'
-import { Notifications } from 'expo'
+import React from 'react';
+import * as Permissions from 'expo-permissions';
+import { Notifications } from 'expo';
 import Constants from 'expo-constants';
-import * as navigation from '../utils/navigation'
+import { setNotify, setToken } from '../store/actions/notifications';
 
-let TOKEN = ''
-
-export const getToken = () => {
-  return TOKEN
-}
-
-export const register = async () => {
+export const register = async (dispatch) => {
   if (Constants.isDevice) {
     const { status: existingStatus } = await Permissions.getAsync(
       Permissions.NOTIFICATIONS
@@ -28,7 +23,8 @@ export const register = async () => {
       return;
     }
 
-    TOKEN = await Notifications.getExpoPushTokenAsync();
+    const TOKEN = await Notifications.getExpoPushTokenAsync();
+    dispatch(setToken(TOKEN));
   } else {
     alert('Must use physical device for Push Notifications');
   }
@@ -43,18 +39,12 @@ export const register = async () => {
   }
 }
 
-const _listen = (notification) => {
+const _handleNotification = (dispatch) => (notification) => {
   if (notification.origin === "selected") {
-    navigation.navigate("ArticleListView", {
-      ticketID: notification.data.ticketID
-    })
+    dispatch(setNotify(notification))
   }
 }
 
-export const addListener = () => {
-  Notifications.addListener(_listen)
-}
-
-export const removeListener = () => {
-  Notifications.removeListener(_listen)
+export const addListener = (dispatch) => {
+  Notifications.addListener(_handleNotification(dispatch))
 }
