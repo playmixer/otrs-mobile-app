@@ -1,11 +1,14 @@
 import React from 'react';
 
 export const navigationRef = React.createRef();
+export const isReadyRef = React.createRef();
 
 export function navigate(name, params) {
-  navigationRef.current?.navigate(name, params);
-}
-
-export function navigationState() {
-  return navigationRef.current
+  if (isReadyRef.current && navigationRef.current) {
+    navigationRef.current.navigate(name, params);
+  } else {
+    setTimeout(() => {
+      navigate(name, params)
+    }, 1000)
+  }
 }
