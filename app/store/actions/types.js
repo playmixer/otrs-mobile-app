@@ -15,3 +15,9 @@ export const TICKET_VIEW_CLEANUP = 'TICKET_VIEW_CLEANUP';
 //error
 export const ADD_ERROR_ITEM = 'ADD_ERROR_ITEM';
 export const ERROR_CLEAR = 'ERROR_CLEAR';
+
+//notification
+export const SET_NOTIFY = 'SET_NOTIFY';
+export const CLEAR_NOTIFY = 'CLEAR_NOTIFY';
+export const SHOW_NOTIFY = 'SHOW_NOTIFY';
+export const SET_TOKEN = 'SET_TOKEN';
