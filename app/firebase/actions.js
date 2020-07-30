@@ -1,5 +1,4 @@
 import firebaseApp from './index'
-import { getToken } from '../notifications/index'
 
 const database = firebaseApp.database()
 
@@ -7,8 +6,7 @@ export async function checkSubsription({ userID }) {
   return database.ref('/subscribers/' +userID).once('value')
 }
 
-export function subscribe({ userID, userName, tickets }) {
-  const token = getToken()
+export function subscribe({ userID, userName, tickets, token }) {
 
   database.ref('/subscribers/' +userID).set({
     expoToken: token,
