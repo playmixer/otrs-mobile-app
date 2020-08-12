@@ -11,8 +11,10 @@ import Loader from '../../components/Loader'
 
 import * as dateFormat from '../../formatters/date'
 
+import { getTicket } from '../../store/actions/ticket'
 
-function ArticleListView({ navigation, ticket, user, route }) {
+
+function ArticleListView({ navigation, ticket, user, route, dispatch }) {
   const [isLoading, setIsLoading] = React.useState(true)
   const [articleList, setArticleList] = React.useState({
     items: [],
@@ -25,7 +27,9 @@ function ArticleListView({ navigation, ticket, user, route }) {
   }
 
   const getArticleData = () => {
-    apiTicket.getArticlesByTicket({ ticketID: route.params.ticketID, basic: user.basic })
+    const id = route.params.ticketID
+
+    apiTicket.getArticlesByTicket({ ticketID: id, basic: user.basic })
       .then(res => {
         let views = {}
         let items = []
@@ -47,6 +51,8 @@ function ArticleListView({ navigation, ticket, user, route }) {
         setArticleList({ items: items, viewItems: {...views}})
         setIsLoading(false)
       })
+
+    !ticket.viewItems[id] && dispatch(getTicket({ id: id, basic: user.basic }))
   }
 
   const formattingSubject = (subject) => {
