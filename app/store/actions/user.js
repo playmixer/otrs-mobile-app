@@ -61,9 +61,22 @@ export const userLogout = () => (dispatch) => {
 export const getAsyncStorage = () => (dispatch) => {
   AsyncStorage.getItem('auth')
     .then(res => {
+
       if (res) {
-        dispatch(updateStorage({...JSON.parse(res)}))
+        const parsedData = JSON.parse(res);
+
+        accountApi.getUserData({ basic: parsedData.basic })
+          .catch(err => {
+            if (err.request.status === 401) {
+              return dispatch(logout())
+            }
+          })
+
+        dispatch(updateStorage({...parsedData}))
+
       }
     })
-    .catch()
+    .catch(() => {
+      dispatch(logout())
+    })
 }
